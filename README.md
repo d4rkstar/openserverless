@@ -1,14 +1,12 @@
 # Apache OpenServerless
 
-Welcome to [Apache OpenServerless](https://cwiki.apache.org/confluence/display/INCUBATOR/OpenServerlessProposal) (also referenced as **AOS**), an incubating project at the [Apache Software Foundation](https://www.apache.org).
+Welcome to [Apache OpenServerless](https://cwiki.apache.org/confluence/display/INCUBATOR/OpenServerlessProposal) (shortened as **AOS**), an incubating project at the [Apache Software Foundation](https://www.apache.org).
 
 This README provides information how to setup the development environment of the project. 
 
-**NOTE** 
-
 For more information refer to the [website](https://openserverless.apache.org) (not yet available).
 
-We are in the process of migrating from Nuvolaris Community to Apache OpenServerless. Check the migration status in [issue #2.](https://github.com/apache/openserverless/issues/2)
+**NOTE** we are still in the process of migrating from [Nuvolaris](https://github.com/nuvolaris/nuvlaris) to Apache OpenServerless - check https://github.com/apache/openserverless/issues/2 for the status.
 
 ## Development Enviroment Overview
 
@@ -85,16 +83,7 @@ multipass transfer $HOME/.ssh/id_rsa.pub openserverless:
 multipass exec openserverless -- bash -c "cat id_rsa.pub | tee -a .ssh/authorized_keys"
 ```
 
-3. Create a new private key to authenticate your openserverless development environment on github:
-
-```
-multipass exec openserverless -- ssh-keygen -t ed25519 -C "openserverless" -f /home/ubuntu/.ssh/id_ed25519
-multipass exec openserverless -- cat /home/ubuntu/.ssh/id_ed25519.pub
-```
-
-Retrieve the content of the public key and add it to your github. As an alternative, you may want to use PAT.
-
-4. Create a configuration named `openserverless` to easily access it.
+3. Create a configuration named `openserverless` to easily access it.
 
 First type `multipass list`. You will see something like this:
 
@@ -116,19 +105,7 @@ Host openserverless
   IdentityFile ~/.ssh/id_rsa
 ```
 
-In alternative, you can use this all-in-one command:
-
-```
-export OS_IP=`multipass list | grep openserverless | grep Running | awk '{ print $3 }'`
-cat << EOF >> ~/.ssh/config
-Host openserverless
-  Hostname $OS_IP
-  User ubuntu
-  IdentityFile ~/.ssh/id_rsa
-EOF
-```
-
-5. Check you have access without password  and configure git
+4. Check you have access without password  and configure git
 
 ```
 ssh openserverless
@@ -153,7 +130,14 @@ git config --global user.email "<your-email>"
 
 5. Click on `openserverless` then select Linux if requested
 
-6. Click on the menu bar on `File` then `Openworkspace from file`, then select the `openserverless` folder and open the `openserverless.code-workspace`. Select `Linux` and then `Trust the authors` if requested.
+6. Click on the menu bar on `File` then `Openworkspace from file`, then select the `openserverless` folder and open one of the workspaces. Currently:
+
+- `openserverless-cli.code-workspace`: for the CLI
+- `openserverless.code-workspace`: for the Operator
+- `openserverless.code-workspace`: everything else
+
+
+ Select `Linux` and then `Trust the authors` if requested.
 
 ## Access to the subprojects
 
